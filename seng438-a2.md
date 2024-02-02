@@ -7,7 +7,7 @@
 >   Department of Electrical and Software Engineering
 >   University of Calgary
 
-Due Date: Check D2L for the submission deadline.
+Due Date: February 16, 2024
 
 # 1 Introduction
 
