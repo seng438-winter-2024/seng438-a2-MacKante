@@ -412,4 +412,102 @@ public class DataUtilitiesTest extends DataUtilities {
 		assertEquals(0.0, result.getValue(1));
 		assertEquals(0.0, result.getValue(2));
 	}
+
+	/**
+	 * Check that the method returns the correct cumulative percentages for an example with all negative numbers
+	 */
+	@Test
+	public void testGetCumulativePercentagesWithAllNegativeNumbers() {
+		context.checking(new Expectations() {{
+			atLeast(1).of(keyedValuesMock).getItemCount();
+			will(returnValue(3));
+			
+			oneOf(keyedValuesMock).getKey(0);
+			will(returnValue(0));
+			
+			oneOf(keyedValuesMock).getKey(1);
+			will(returnValue(1));
+			
+			oneOf(keyedValuesMock).getKey(2);
+			will(returnValue(2));
+			
+			atLeast(1).of(keyedValuesMock).getValue(0);
+			will(returnValue(-5));
+			
+			atLeast(1).of(keyedValuesMock).getValue(1);
+			will(returnValue(-9));
+			
+			atLeast(1).of(keyedValuesMock).getValue(2);
+			will(returnValue(-2));
+		}});
+
+		KeyedValues result = DataUtilities.getCumulativePercentages(keyedValuesMock);
+		
+		assertNotNull(result);
+		assertEquals(3, result.getItemCount());
+		// double negative should allow for positive decimal values
+		assertEquals(0.3125, result.getValue(0));
+		assertEquals(0.875, result.getValue(1));
+		assertEquals(1.0, result.getValue(2));
+	}
+	
+	/**
+	 * Check that the method returns the correct cumulative percentage for an example with a single value in the data argument
+	 */
+	@Test
+	public void testGetCumulativePercentagesWithSingleValue() {
+		context.checking(new Expectations() {{
+			atLeast(1).of(keyedValuesMock).getItemCount();
+			will(returnValue(1));
+			
+			oneOf(keyedValuesMock).getKey(0);
+			will(returnValue(0));
+			
+			atLeast(1).of(keyedValuesMock).getValue(0);
+			will(returnValue(2));
+		}});
+
+		KeyedValues result = DataUtilities.getCumulativePercentages(keyedValuesMock);
+		
+		assertNotNull(result);
+		assertEquals(1, result.getItemCount());
+		assertEquals(1.0, result.getValue(0));
+	}
+
+	/**
+	 * Check that the method returns the correct cumulative percentages for an example with very small values
+	 */
+	@Test
+	public void testGetCumulativePercentagesWithVerySmallValues() {
+		context.checking(new Expectations() {{
+			atLeast(1).of(keyedValuesMock).getItemCount();
+			will(returnValue(3));
+			
+			oneOf(keyedValuesMock).getKey(0);
+			will(returnValue(0));
+			
+			oneOf(keyedValuesMock).getKey(1);
+			will(returnValue(1));
+			
+			oneOf(keyedValuesMock).getKey(2);
+			will(returnValue(2));
+			
+			atLeast(1).of(keyedValuesMock).getValue(0);
+			will(returnValue(0.0000000000005));
+			
+			atLeast(1).of(keyedValuesMock).getValue(1);
+			will(returnValue(0.0000000000002));
+			
+			atLeast(1).of(keyedValuesMock).getValue(2);
+			will(returnValue(0.0000000000003));
+		}});
+
+		KeyedValues result = DataUtilities.getCumulativePercentages(keyedValuesMock);
+		
+		assertNotNull(result);
+		assertEquals(3, result.getItemCount());
+		assertEquals(0.5, result.getValue(0));
+		assertEquals(0.7, result.getValue(1));
+		assertEquals(1.0, result.getValue(2));
+	}
 }
