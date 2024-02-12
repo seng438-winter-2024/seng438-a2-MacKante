@@ -12,44 +12,67 @@ public class RangeTest {
 
     @Before
     public void setUp() throws Exception { 
-//    	exampleRange = new Range(-1, 1);
     }
    
+    /**
+     * check if the upper bound is returned correctly when it is equal to the lower bound
+     */
     @Test
     public void upperBoundReturnsWhenEqualLowerBound() {
     	exampleRange = new Range(1.0, 1.0);
     	assertEquals(1.0, exampleRange.getUpperBound(), .000000001d);
     }
+    
+    /**
+     * check if the upper bound is returned correctly when it is greater than the lower bound
+     */
     @Test
     public void upperBoundReturnsWhenGreaterThanLowerBound() {
     	exampleRange = new Range(1.0, 5.0);
     	assertEquals(5.0, exampleRange.getUpperBound(), .000000001d);
     }
     
+    /**
+     * check if an exception is thrown when the upper bound is less than the lower bound
+     * @throws IllegalArgumentException
+     */
     @Test (expected = IllegalArgumentException.class)
     public void upperBoundFailsWhenLessThanLowerBound() throws IllegalArgumentException {
     	exampleRange = new Range(5.0, 1.0);
     	assertEquals(1.0, exampleRange.getUpperBound(), .000000001d);
     }
     
+    /**
+     * check if the upper bound is returned correctly when it is very close to the lower bound using decimal places
+     */
     @Test
     public void upperBoundReturnsWhenGreaterThanLowerBound_BVT_ALB() {
     	exampleRange = new Range(1.0, 1.0001);
     	assertEquals(1.0001, exampleRange.getUpperBound(), .000000001d);
     }
     
+    /**
+     * check if an exception is thrown when the upper bound is less than the lower bound using decimal places
+     * @throws IllegalArgumentException
+     */
     @Test (expected = IllegalArgumentException.class)
     public void upperBoundFailsWhenLessThanLowerBound_BVT_BLB() throws IllegalArgumentException {
     	exampleRange = new Range(5.0, 4.9999);
     	assertEquals(4.9999, exampleRange.getUpperBound(), .000000001d);
     }
    
+    /**
+     * check if the upper bound is returned correctly when it is negative
+     */
     @Test
     public void upperBoundReturnsEvenWhenNegative() {
     	exampleRange = new Range(-10, -9);
     	assertEquals(-9, exampleRange.getUpperBound(), .000000001d);
     }
     
+    /**
+     * check if the upper bound is returned correctly using more extreme decimal places
+     */
     @Test
     public void upperBoundExtremeDecimalPlaces() {
     	exampleRange = new Range(1.0, 1.000000001);
