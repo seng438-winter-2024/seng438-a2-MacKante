@@ -1,126 +1,105 @@
-## Range (5 of 15)
+# Range
+## ctor (for reference):
+public Range(double lower, double upper) <br/>
+Creates a new range. <br/>
+#### Parameters:
+    lower - the lower bound (must be <= upper bound).
+    upper - the upper bound (must be >= lower bound).
 
-### double	getUpperBound()
-Returns the upper bound for the range.
-
-Range
-
-public Range(double lower,
-             double upper)
-Creates a new range.
-Parameters:
-lower - the lower bound (must be <= upper bound).
-upper - the upper bound (must be >= lower bound).
-
-getUpperBound
-
-public double getUpperBound()
-Returns the upper bound for the range.
-Returns:
-The upper bound.
+## double	getUpperBound()
+#### Returns the upper bound for the range.
+#### Returns: 
+    The upper bound.
 
 Equivalence Class Partitions:
-upper > lower (valid)
-upper == lower (valid)
-upper < lower (invalid)
+- upper > lower (valid)
+- upper == lower (valid)
+- upper < lower (invalid)
 
 BVT/Robustness
-BLB: upper < lower
-LB: upper == lower
-ALB: maybe
-Nominal: upper > lower
+- BLB: upper < lower
+- LB: upper == lower
+- ALB: maybe
+- Nominal: upper > lower
 
-ExtraStuff:
-Set upper = NULL //invalid input
-test (-)ive
-test decimals rounding
+Extra test cases:
+- Set upper = NULL //invalid input
+- test negative upper bound
+- test very small decimals
 
-## DataUtilities
+# DataUtilities
 
-DataUtilities
-
-public DataUtilities() // default ctor
-
-### static double calculateColumnTotal(Values2D data, int column)
-Returns the sum of the values in one column of the supplied data table.
-
-calculateColumnTotal
-
-public static double calculateColumnTotal(Values2D data, int column)
-Returns the sum of the values in one column of the supplied data table. With invalid input, a total of zero will be returned.
-Parameters:
+## static double calculateColumnTotal(Values2D data, int column)
+#### Returns the sum of the values in one column of the supplied data table. With invalid input, a total of zero will be returned.
+#### Parameters:
     data - the table of values (null not permitted).
     column - the column index (zero-based).
-Returns:
+#### Returns:
     The sum of the values in the specified column.
-Throws:
+#### Throws:
     InvalidParameterException - if invalid data object is passed in.
 
-Equivalence class Partitions:
-data
-- Normal Values2D object (maybe empty one?) (valid)
-- null (invalid) [throw exception]
-- Any other type of object (arrayList or something) (invalid) [throw exception]
-Column (assume data has n columns)
-- column < 0 (invalid)
-- 0 <= column < n (valid)
-- n <= column (invalid)
+Equivalence Class Partitions:
+- Values2D data
+    - Normal Values2D object (valid)
+    - Empty Values2D object (valid)
+    - null (invalid) [throw exception]
+- int column (assume data has n columns)
+    - column < 0 (invalid)
+    - 0 <= column < n (valid)
+    - n <= column (invalid)
 
-BVT:
-BLB: column < 0 
-LB: column == 0
-ALB: column == 1
-nom: 1 <= column < n - 1
-BUB: column == n - 1
-UB column == n
-AUB: column > n
+BVT/Robustness:
+- BLB: column < 0 
+- LB: column == 0
+- ALB: column == 1
+- nom: 1 <= column < n - 1
+- BUB: column == n - 1
+- UB column == n
+- AUB: column > n
 
-Extra stuff:
-column == null
-integer overflow
+Extra test cases:
+- integer overflow
 
-### static KeyedValues getCumulativePercentages(KeyedValues data)
-Returns a KeyedValues instance that contains the cumulative percentage values for the data in another KeyedValues instance.
+## static KeyedValues getCumulativePercentages(KeyedValues data)
+#### Returns a KeyedValues instance that contains the cumulative percentage values for the data in another KeyedValues instance. The cumulative percentage is each value's cumulative sum's portion of the sum of all the values.
+eg: Input:
 
-getCumulativePercentages
-
-public static KeyedValues getCumulativePercentages(KeyedValues data)
-Returns a KeyedValues instance that contains the cumulative percentage values for the data in another KeyedValues instance. The cumulative percentage is each value's cumulative sum's portion of the sum of all the values.
-eg:
-Input:
-
-Key  Value
-0        5
-1        9
-2        2
+Key      Value <br/>
+0  &ensp;5 <br/>
+1  &ensp;9 <br/>
+2  &ensp;2 <br/>
 
 Returns:
 
-Key  Value
-0     0.3125 (5 / 16)
-1     0.875 ((5 + 9) / 16)
-2     1.0 ((5 + 9 + 2) / 16)
+Key  Value <br/>
+0 &ensp;    0.3125 (5 / 16) <br/>
+1 &ensp;    0.875 ((5 + 9) / 16) <br/>
+2 &ensp;    1.0 ((5 + 9 + 2) / 16) <br/>
 The percentages are values between 0.0 and 1.0 (where 1.0 = 100%).
 
-Parameters:
-data - the data (null not permitted).
-Returns:
-The cumulative percentages.
-Throws:
-InvalidParameterException - if invalid data object is passed in.
+#### Parameters:
+    data - the data (null not permitted).
 
-Equiv classes
+#### Returns:
+    The cumulative percentages.
+#### Throws:
+    InvalidParameterException - if invalid data object is passed in.
+
+Equivalence Class Partitions
 - data
-    - Normal KeyedValues object (maybe empty one?) (valid)
-    - null (invalid) throw exception
-    - Any other type of object (arrayList or something) (invalid) throw exception
+    - Normal KeyedValues object (valid)
+    - Empty KeyedValues object (valid)
+    - null (invalid) [throw exception]
 - Values inside data
     - negative
-    - all zeros / zeros mixed in
+    - all zeros
     - positive
     - nulls
     - really small decimals?
-    - none/empty object
+
+- Extra Test Cases:
+    - zeros mixed in
 
 
 
