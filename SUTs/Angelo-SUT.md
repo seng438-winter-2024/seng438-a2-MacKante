@@ -38,21 +38,21 @@
 ## SUT for calculateRowTotal
 
 ### Test Case 1: calculateRowTotal_ShouldReturnCorrectTotal
-**Input:** -1 and 1
-**Expected Output:** 0 
-**Actual Output:** 0
+**Input:** row = 1 and column = 3
+**Expected Output:** 6.0
+**Actual Output:** 3.0
 
 ### Test Case 2: calculateRowTotal_WithNegativeValues_ShouldReturnCorrectTotal
-**Input:** 0 and 1
-**Expected Output:** 0.5 
-**Actual Output:** 0.5
+**Input:** row = 1 and column = 3
+**Expected Output:** 0
+**Actual Output:** 3.0
 
 ### Test Case 3: calculateRowTotal_WithZeroValues_ShouldReturnCorrectTotal
-**Input:** -2 and 2
+**Input:** 0
 **Expected Output:** 0 
 **Actual Output:** 0
 
 ### Test Case 4: calculateRowTotal_WithEmptyDataSet_ShouldReturnZeroTotal
-**Input:** -55 and 100
-**Expected Output:** 22.5 
-**Actual Output:** 22.5
+**Input:** Empty Dataset
+**Expected Output:** 0
+**Actual Output:** 0
