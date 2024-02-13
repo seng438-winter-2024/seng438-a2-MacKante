@@ -23,7 +23,6 @@ BVT/Robustness
 - Nominal: upper > lower
 
 Extra test cases:
-- Set upper = NULL //invalid input
 - test negative upper bound
 - test very small decimals
 
@@ -96,7 +95,7 @@ Equivalence Class Partitions
     - all zeros
     - positive
     - nulls
-    - really small decimals?
+    - really small decimals
 
 - Extra Test Cases:
     - zeros mixed in

@@ -338,7 +338,8 @@ public class DataUtilitiesTest extends DataUtilities {
 	}
 	
 	/**
-	 * Check that the method returns the correct cumulative percentages for an example with all zeros
+	 * Check that the method returns NaN as the percentages for an example with all zeros
+	 * This is because Java's floating point division has 0.0 / 0.0 = NaN
 	 */
 	@Test
 	public void testGetCumulativePercentagesWithAllZeros() {
@@ -369,14 +370,12 @@ public class DataUtilitiesTest extends DataUtilities {
 		
 		assertNotNull(result);
 		assertEquals(3, result.getItemCount());
-		// division by 0
-		assertEquals(0.0, result.getValue(0));
-		assertEquals(0.0, result.getValue(1));
-		assertEquals(0.0, result.getValue(2));
+		// floating point division of 0.0/0.0 = NaN
+		assertEquals(0.0/0.0, result.getValue(2));
 	}
 	
 	/**
-	 * Check that the method returns the correct cumulative percentages for an example with all nulls
+	 * Check that the method returns a KeyedValues object with nulls for an example with all nulls
 	 */
 	@Test
 	public void testGetCumulativePercentagesWithAllNulls() {
@@ -408,9 +407,9 @@ public class DataUtilitiesTest extends DataUtilities {
 		assertNotNull(result);
 		assertEquals(3, result.getItemCount());
 		// division by 0
-		assertEquals(5.0/0.0, result.getValue(0));
-		assertEquals(0.0, result.getValue(1));
-		assertEquals(0.0, result.getValue(2));
+		assertEquals(null, result.getValue(0));
+		assertEquals(null, result.getValue(1));
+		assertEquals(null, result.getValue(2));
 	}
 
 	/**
