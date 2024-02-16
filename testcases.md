@@ -98,7 +98,7 @@ test centralValues
 | testCreateNumberArray_NegativeValues                          |                                                    |                                               |
 | testCreateNumberArray_ZeroValues                              |                                                    |                                               |
 | testCreateNumberArray_EmptyArray                              |                                                    |                                               |
-| testCalculateColumnTotal_UsingNullAsDataArgument              | invalid data object                                | Data object invalid                           |
+| testCalculateColumnTotal_UsingNullAsDataArgument              | Invalid data object                                | Data object invalid                           |
 | testCalculateColumnTotal_ZeroRows                             | Valid data object, 0 <= column < n (valid)         | Data object has 0 rows, column is nominal     |
 | testCalculateColumnTotal_ZeroColumns                          | Valid data object, 0 <= column < n (valid)         | Data object has 0 columns, column is nominal  |
 | testCalculateColumnTotal_NegativeColumnArg_BLB                | Valid data object, column < 0 (invalid)            | Data object nominal, column below lower bound |
@@ -106,28 +106,17 @@ test centralValues
 | testCalculateColumnTotal_ColumnIsNominal                      | Valid data object, 0 <= column < n (valid)         | Data object nominal, column is nominal        |
 | testCalculateColumnTotal_ColumnIsAtUB                         | Valid data object, n <= column (invalid)           | Data object nominal, column at upper bound    |
 | testCalculateColumnTotal_ColumnIsAUB                          | Valid data object, n <= column (invalid)           | Data object nominal, column above upper bound |
-| testGetCumulativePercentages_EmptyDataArg                     |                                                    |                                               |
-| testGetCumulativePercentages_NullDataArg                      |                                                    |                                               |
-| testGetCumulativePercentages_ExampleFromDocs                  |                                                    |                                               |
-| testGetCumulativePercentages_WithNegativeNumbers              |                                                    |                                               |
-| testGetCumulativePercentages_WithAZero                        |                                                    |                                               |
-| testGetCumulativePercentages_WithAllZeros                     |                                                    |                                               |
-| testGetCumulativePercentages_WithAllNulls                     |                                                    |                                               |
-| testGetCumulativePercentages_WithAllNegativeNumbers           |                                                    |                                               |
-| testGetCumulativePercentages_WithSingleValue                  |                                                    |                                               |
-| testGetCumulativePercentages_WithVerySmallValues              |                                                    |                                               |
+| testGetCumulativePercentages_EmptyDataArg                     | Valid data object                                  | Empty                                         |
+| testGetCumulativePercentages_NullDataArg                      | Invalid data object                                | Null                                          |
+| testGetCumulativePercentages_ExampleFromDocs                  | Valid data object, valid contents in object        | Nominal                                       |
+| testGetCumulativePercentages_WithNegativeNumbers              | Valid data object, valid contents in object        | Nominal                                       |
+| testGetCumulativePercentages_WithAZero                        | Valid data object, valid contents in object        | Nominal                                       |
+| testGetCumulativePercentages_WithAllZeros                     | Valid data object, invalid contents in object      | Contains zeros                                |
+| testGetCumulativePercentages_WithAllNulls                     | Valid data object, invalid contents in object      | Contains nulls                                |
+| testGetCumulativePercentages_WithAllNegativeNumbers           | Valid data object, invalid contents in object      | Contains negative numbers                     |
+| testGetCumulativePercentages_WithSingleValue                  | Valid data object, valid contents in object        | Nominal                                       |
+| testGetCumulativePercentages_WithVerySmallValues              | Valid data object, valid contents in object        | Nominal                                       |
 | testcalculateRowTotal_CorrectTotal                            |                                                    |                                               |
 | testcalculateRowTotalWithEmptyDataSet_ReturnZeroTotal         |                                                    |                                               |
 | testcalculateRowTotalWithZeroValues_ReturnCorrectTotal        |                                                    |                                               |
 | testcalculateRowTotalWithNegativeValues_ReturnCorrectTotal    |                                                    |                                               |
-
-
-Equivalence Class Partitions for calculateColumnTotal:
-- Values2D data
-    - Normal Values2D object (valid)
-    - Empty Values2D object (valid)
-    - null (invalid) [throw exception]
-- int column (assume data has n columns)
-    - column < 0 (invalid)
-    - 0 <= column < n (valid)
-    - n <= column (invalid)
