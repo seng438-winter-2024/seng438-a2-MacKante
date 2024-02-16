@@ -256,9 +256,9 @@ public class RangeTest {
 	}
 	
 	@Test
-	public void testGetLength_NegativeLength() {
-		Range centRange = new Range(5, 1);
-		assertEquals("The length of 5 to 1 should be -4", -4, centRange.getLength(), .000000001d);
+	public void testGetLength_InfiniteLength() {
+		Range infRange = new Range(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+		assertEquals("The length of -inf to +inf should be +inf", Double.POSITIVE_INFINITY, infRange.getLength(), .000000001d);
 	}
 	
 	@Test
