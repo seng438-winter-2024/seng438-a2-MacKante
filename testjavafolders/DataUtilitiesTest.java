@@ -9,79 +9,77 @@ import org.junit.Test;
 public class DataUtilitiesTest {
 
     @Test
-    public void calculateRowTotal_ShouldReturnCorrectTotal() {
-        // Mocking a Values2D object for testing
-        Values2D values = new MockValues2D();
-        int row = 0; // Row index to calculate total for
+    public void calculateRowTotal_CorrectTotal() {
 
-        double expectedTotal = 6.0; // Expected total for the given row
+        Values2D values = new CreateValues2D(); //calls a constructor for creating a sample values2D for testing purposes
+        int row = 0; // assign row to 0
 
+        double expectedTotal = 6.0; // Expected row total
         assertEquals("The calculated row total should be correct",
                 expectedTotal, DataUtilities.calculateRowTotal(values, row), .000000001d);
     }
     
     @Test
-    public void calculateRowTotal_WithNegativeValues_ShouldReturnCorrectTotal() {
-        // Mocking a Values2D object for testing
-        Values2D values = new MockValues2D();
-        int row = 0; // Row index to calculate total for
+    public void calculateRowTotalWithNegativeValues_ReturnCorrectTotal() {
 
-        double expectedTotal = 3.0; // Expected total for the given row
+        Values2D values = new CreateValues2D(); //calls a constructor for creating a sample values2D for testing purposes
+        int row = 0; // assign row to 0
 
-        assertEquals("The calculated row total should be correct",
-                expectedTotal, DataUtilities.calculateRowTotal(values, row), .000000001d);
-    }
-
-    @Test
-    public void calculateRowTotal_WithZeroValues_ShouldReturnCorrectTotal() {
-        // Mocking a Values2D object for testing
-        Values2D values = new MockValues2D();
-        int row = 0; // Row index to calculate total for
-
-        double expectedTotal = 0.0; // Expected total for the given row
+        double expectedTotal = 3.0; // Expected row total
 
         assertEquals("The calculated row total should be correct",
                 expectedTotal, DataUtilities.calculateRowTotal(values, row), .000000001d);
     }
 
     @Test
-    public void calculateRowTotal_WithEmptyDataSet_ShouldReturnZeroTotal() {
-        // Mocking a Values2D object with an empty dataset for testing
-        Values2D values = new MockEmptyValues2D();
-        int row = 0; // Row index to calculate total for
+    public void calculateRowTotalWithZeroValues_ReturnCorrectTotal() {
 
-        double expectedTotal = 0.0; // Expected total for the given row
+        Values2D values = new CreateValues2D(); //calls a constructor for creating a sample values2D for testing purposes
+        int row = 0; // assign row to 0
+
+        double expectedTotal = 0.0; // Expected row total
+
+        assertEquals("The calculated row total should be correct",
+                expectedTotal, DataUtilities.calculateRowTotal(values, row), .000000001d);
+    }
+
+    @Test
+    public void calculateRowTotalWithEmptyDataSet_ReturnZeroTotal() {
+
+        Values2D values = new CreateEmptyValues2D(); //calls a constructor for creating a sample values2D without dataset for testing purposes
+        int row = 0; // assign row to 0
+
+        double expectedTotal = 0.0; // Expected row total
 
         assertEquals("The calculated row total should be zero for an empty dataset",
                 expectedTotal, DataUtilities.calculateRowTotal(values, row), .000000001d);
     }
 
-    // Mock implementation of Values2D for testing purposes
-    private class MockValues2D implements Values2D {
-        // Implement necessary methods of Values2D interface for testing
-        // For example, getValue(int row, int column) etc.
+    // Uses a private class to create Values2D
+    private class CreateValues2D implements Values2D {
+        //implementing getters for row and column
         @Override
         public int getRowCount() {
-            return 1; // Single row for testing
+            return 1; // only one row
         }
 
         @Override
         public int getColumnCount() {
-            return 3; // Three columns for testing
+            return 3; // only three columns
         }
 
         @Override
         public Number getValue(int row, int column) {
-            // Mock values for the row
+            // creates sample data with values 1, 2, and 3,
             double[][] data = {
-                    {1.0, 2.0, 3.0} // Sample row with values 1.0, 2.0, and 3.0
+                    {1.0, 2.0, 3.0}
             };
-            return data[row][column];
+            return data[row][column]; //returns data with one row and three columns
         }
     }
-    
-    private class MockEmptyValues2D implements Values2D {
-        // Implement necessary methods of Values2D interface for testing
+    // Uses a private class to create an empty dataset for Values2D
+    private class CreateEmptyValues2D implements Values2D {
+        //implementing getters for row and column
         @Override
         public int getRowCount() {
             return 0; // Empty dataset
