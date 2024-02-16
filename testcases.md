@@ -11,7 +11,7 @@ testContains_UpperBound<br/>
 testContains_NullRange<br/>
 testGetLength_ZeroLength<br/>
 testGetLength_PositiveLength<br/>
-testGetLength_NegativeLength<br/>
+testGetLength_InfiniteLength<br/>
 testGetLength_FractionLength<br/>
 testUpperBound_ExtremeDecimalPlaces<br/>
 testUpperBound_ReturnsEvenWhenNegative<br/>
@@ -26,6 +26,7 @@ testcentralValueShouldBeZeroForWideRange<br/>
 testcentralValueShouldBeTwentyTwoPointFive<br/>
 testnegativeBounds<br/>
 testzeroBounds<br/>
+
 ## DataUtilitiesTest
 testCreateNumberArray_PositiveValues<br/>
 testCreateNumberArray_NegativeValues<br/>
