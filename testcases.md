@@ -54,6 +54,9 @@ testcalculateRowTotal_CorrectTotal
 testcalculateRowTotalWithEmptyDataSet_ReturnZeroTotal
 testcalculateRowTotalWithZeroValues_ReturnCorrectTotal
 testcalculateRowTotalWithNegativeValues_ReturnCorrectTotal
+testCreateNumberArray2D_ValidArray 
+testCreateNumberArray2D_EmptyArray 
+testCreateNumberArray2D_NullArray 
 
 ------------------------------------------------------------------------------------------------------
 # adD YoUr sTufF hERe
@@ -120,3 +123,6 @@ test centralValues
 | testcalculateRowTotalWithEmptyDataSet_ReturnZeroTotal         |                                                    |                                               |
 | testcalculateRowTotalWithZeroValues_ReturnCorrectTotal        |                                                    |                                               |
 | testcalculateRowTotalWithNegativeValues_ReturnCorrectTotal    |                                                    |                                               |
+| testCreateNumberArray2D_ValidArray                            |                                                    |                                               |
+| testCreateNumberArray2D_EmptyArray                            |                                                    |                                               |
+| testCreateNumberArray2D_NullArray                             |                                                    |                                               |
