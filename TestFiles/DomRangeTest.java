@@ -37,6 +37,12 @@ public class RangeTest {
 		assertEquals("The length of 0.99 to 2 should be 1.01", 1.01, fracRange.getLength(), .000000001d);
 	}
 
+	@Test
+	public void testGetLength_NullLength() {
+		Range NullRange = new Range(Double.NaN, Double.NaN);
+		assertEquals("The length of 0.99 to 2 should be 1.01", 1.01, fracRange.getLength(), .000000001d);
+	}
+
 	@After
 	public void tearDown() throws Exception {}
 
