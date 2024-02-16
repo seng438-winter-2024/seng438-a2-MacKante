@@ -1,6 +1,5 @@
-# Just list the description of your test case, one for each line
-# Imma chatgpt it to make us a nice markdown list
-
+# Test Cases:
+## RangeTest:
 testGetLowerBound_PositiveLowerBound
 testGetLowerBound_NegativeLowerBound
 testGetLowerBound_ZeroLowerBound
@@ -27,7 +26,7 @@ testcentralValueShouldBeZeroForWideRange
 testcentralValueShouldBeTwentyTwoPointFive
 testnegativeBounds
 testzeroBounds
-
+## DataUtilitiesTest
 testCreateNumberArray_PositiveValues
 testCreateNumberArray_NegativeValues
 testCreateNumberArray_ZeroValues
