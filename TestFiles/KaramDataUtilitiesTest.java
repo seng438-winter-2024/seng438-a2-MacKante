@@ -60,7 +60,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * @throws InvalidParameterException
 	 */
 	@Test(expected=InvalidParameterException.class)
-	public void testCalculateColumnTotalUsingNullAsDataArgument() throws InvalidParameterException {
+	public void testCalculateColumnTotal_UsingNullAsDataArgument() throws InvalidParameterException {
 		assertEquals(0, DataUtilities.calculateColumnTotal(null, 0), .000000001d);
 	}
 	
@@ -68,7 +68,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns 0 when the data argument has no rows
 	 */
 	@Test
-	public void testCalculateColumnTotalZeroRows() {
+	public void testCalculateColumnTotal_ZeroRows() {
 
         // Define expectations for the mock
         context.checking(new Expectations() {{
@@ -88,7 +88,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns 0 when the data argument has no columns
 	 */
 	@Test
-	public void testCalculateColumnTotalZeroColumns() {
+	public void testCalculateColumnTotal_ZeroColumns() {
 
         // Define expectations for the mock
         context.checking(new Expectations() {{
@@ -108,7 +108,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns 0 when the column argument is negative
 	 */
 	@Test
-	public void testCalculateColumnTotalNegativeColumnArg_BLB() {
+	public void testCalculateColumnTotal_NegativeColumnArg_BLB() {
         double result = DataUtilities.calculateColumnTotal(values2DMock, -1);
 
         // Verify the result
@@ -119,7 +119,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check if the method returns the correct total when the column argument is 0 (LB)
 	 */
 	@Test
-	public void testCalculateColumnTotalColumnEqualsZero_LB() {
+	public void testCalculateColumnTotal_ColumnEqualsZero_LB() {
         // Define expectations for the mock
         context.checking(new Expectations() {{
         	// column count should always be called to check that the argument is within boundary
@@ -143,7 +143,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check if the method returns the correct total when the column argument is a nominal value
 	 */
 	@Test
-	public void testCalculateColumnTotalColumnIsNominal() {
+	public void testCalculateColumnTotal_ColumnIsNominal() {
         // Define expectations for the mock
         context.checking(new Expectations() {{
         	// column count should always be called to check that the argument is within boundary
@@ -165,7 +165,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check if the method returns 0 when the column argument is out of bounds at the upper bound
 	 */
 	@Test
-	public void testCalculateColumnTotalColumnIsAtUB() {
+	public void testCalculateColumnTotal_ColumnIsAtUB() {
         // Define expectations for the mock
         context.checking(new Expectations() {{
         	// column count should always be called to check that the argument is within boundary
@@ -177,14 +177,14 @@ public class DataUtilitiesTest extends DataUtilities {
         double result = DataUtilities.calculateColumnTotal(values2DMock, 5);
 
         // Verify the result
-        assertEquals(50, result, 0.0001); // With invalid input, a total of zero will be returned.
+        assertEquals(0, result, 0.0001); // With invalid input, a total of zero will be returned.
     }
 	
 	/**
 	 * Check if the method returns 0 when the column argument is out of bounds above the upper bound
 	 */
 	@Test
-	public void testCalculateColumnTotalColumnIsAUB() {
+	public void testCalculateColumnTotal_ColumnIsAUB() {
 
         context.checking(new Expectations() {{
             oneOf(values2DMock).getColumnCount();
@@ -203,7 +203,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the result object is empty when the data argument is empty
 	 */
 	@Test
-	public void testGetCumulativePercentagesEmptyDataArg() {
+	public void testGetCumulativePercentages_EmptyDataArg() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(0));
@@ -220,7 +220,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * @throws InvalidParameterException
 	 */
 	@Test(expected=InvalidParameterException.class)
-	public void testGetCumulativePercentagesNullDataArg() throws InvalidParameterException {
+	public void testGetCumulativePercentages_NullDataArg() throws InvalidParameterException {
 
 		KeyedValues result = DataUtilities.getCumulativePercentages(null);
 		
@@ -232,7 +232,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns the correct cumulative percentages for a simple example
 	 */
 	@Test
-	public void testGetCumulativePercentagesExampleFromDocs() {
+	public void testGetCumulativePercentages_ExampleFromDocs() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(3));
@@ -269,7 +269,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns the correct cumulative percentages for an example with negative numbers
 	 */
 	@Test
-	public void testGetCumulativePercentagesWithNegativeNumbers() {
+	public void testGetCumulativePercentages_WithNegativeNumbers() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(3));
@@ -304,7 +304,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns the correct cumulative percentages for an example with a zero value
 	 */
 	@Test
-	public void testGetCumulativePercentagesWithAZero() {
+	public void testGetCumulativePercentages_WithAZero() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(3));
@@ -342,7 +342,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * This is because Java's floating point division has 0.0 / 0.0 = NaN
 	 */
 	@Test
-	public void testGetCumulativePercentagesWithAllZeros() {
+	public void testGetCumulativePercentages_WithAllZeros() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(3));
@@ -378,7 +378,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns a KeyedValues object with nulls for an example with all nulls
 	 */
 	@Test
-	public void testGetCumulativePercentagesWithAllNulls() {
+	public void testGetCumulativePercentages_WithAllNulls() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(3));
@@ -416,7 +416,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns the correct cumulative percentages for an example with all negative numbers
 	 */
 	@Test
-	public void testGetCumulativePercentagesWithAllNegativeNumbers() {
+	public void testGetCumulativePercentages_WithAllNegativeNumbers() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(3));
@@ -454,7 +454,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns the correct cumulative percentage for an example with a single value in the data argument
 	 */
 	@Test
-	public void testGetCumulativePercentagesWithSingleValue() {
+	public void testGetCumulativePercentages_WithSingleValue() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(1));
@@ -477,7 +477,7 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method returns the correct cumulative percentages for an example with very small values
 	 */
 	@Test
-	public void testGetCumulativePercentagesWithVerySmallValues() {
+	public void testGetCumulativePercentages_WithVerySmallValues() {
 		context.checking(new Expectations() {{
 			atLeast(1).of(keyedValuesMock).getItemCount();
 			will(returnValue(3));
