@@ -9,16 +9,23 @@ public class RangeTest {
     @BeforeClass public static void setUpBeforeClass() throws Exception {
     }
 
-
     @Before
     public void setUp() throws Exception { 
     }
    
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+    }
+
     /**
      * check if the upper bound is returned correctly when it is equal to the lower bound
      */
     @Test
-    public void upperBoundReturnsWhenEqualLowerBound() {
+    public void testUpperBound_ReturnsWhenEqualLowerBound() {
     	exampleRange = new Range(1.0, 1.0);
     	assertEquals(1.0, exampleRange.getUpperBound(), .000000001d);
     }
@@ -27,7 +34,7 @@ public class RangeTest {
      * check if the upper bound is returned correctly when it is greater than the lower bound
      */
     @Test
-    public void upperBoundReturnsWhenGreaterThanLowerBound() {
+    public void testUpperBound_ReturnsWhenGreaterThanLowerBound() {
     	exampleRange = new Range(1.0, 5.0);
     	assertEquals(5.0, exampleRange.getUpperBound(), .000000001d);
     }
@@ -37,7 +44,7 @@ public class RangeTest {
      * @throws IllegalArgumentException
      */
     @Test (expected = IllegalArgumentException.class)
-    public void upperBoundFailsWhenLessThanLowerBound() throws IllegalArgumentException {
+    public void testUpperBound_FailsWhenLessThanLowerBound() throws IllegalArgumentException {
     	exampleRange = new Range(5.0, 1.0);
     	assertEquals(1.0, exampleRange.getUpperBound(), .000000001d);
     }
@@ -46,7 +53,7 @@ public class RangeTest {
      * check if the upper bound is returned correctly when it is very close to the lower bound using decimal places
      */
     @Test
-    public void upperBoundReturnsWhenGreaterThanLowerBound_BVT_ALB() {
+    public void testUpperBound_ReturnsWhenGreaterThanLowerBound_BVT_ALB() {
     	exampleRange = new Range(1.0, 1.0001);
     	assertEquals(1.0001, exampleRange.getUpperBound(), .000000001d);
     }
@@ -56,7 +63,7 @@ public class RangeTest {
      * @throws IllegalArgumentException
      */
     @Test (expected = IllegalArgumentException.class)
-    public void upperBoundFailsWhenLessThanLowerBound_BVT_BLB() throws IllegalArgumentException {
+    public void testUpperBound_FailsWhenLessThanLowerBound_BVT_BLB() throws IllegalArgumentException {
     	exampleRange = new Range(5.0, 4.9999);
     	assertEquals(4.9999, exampleRange.getUpperBound(), .000000001d);
     }
@@ -65,7 +72,7 @@ public class RangeTest {
      * check if the upper bound is returned correctly when it is negative
      */
     @Test
-    public void upperBoundReturnsEvenWhenNegative() {
+    public void testUpperBound_ReturnsEvenWhenNegative() {
     	exampleRange = new Range(-10, -9);
     	assertEquals(-9, exampleRange.getUpperBound(), .000000001d);
     }
@@ -74,17 +81,8 @@ public class RangeTest {
      * check if the upper bound is returned correctly using more extreme decimal places
      */
     @Test
-    public void upperBoundExtremeDecimalPlaces() {
+    public void testUpperBound_ExtremeDecimalPlaces() {
     	exampleRange = new Range(1.0, 1.000000001);
     	assertEquals(1.000000001, exampleRange.getUpperBound(), .000000001d);
-    }
-    
-    
-    @After
-    public void tearDown() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
     }
 }

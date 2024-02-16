@@ -54,7 +54,7 @@ BVT/Robustness:
 - ALB: column == 1
 - nom: 1 <= column < n - 1
 - BUB: column == n - 1
-- UB column == n
+- UB: column == n
 - AUB: column > n
 
 Extra test cases:
@@ -99,9 +99,3 @@ Equivalence Class Partitions
 
 - Extra Test Cases:
     - zeros mixed in
-
-
-
-
-
-
