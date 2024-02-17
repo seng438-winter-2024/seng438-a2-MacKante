@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Assignment2-artifact
 <<<<<<< HEAD
 
@@ -6,3 +7,10 @@ Assignment 2-artifact
 /bin/
 DS_Store
 >>>>>>> d5a5e3fe1b94e402d5609997910202fa593f5799
+=======
+Assignment2-artifact/
+Assignment 2-artifact/
+
+/bin/
+.DS_Store
+>>>>>>> 2d2c592a810ba60c8c3923ca63264f52dcc9ed12
