@@ -73,10 +73,10 @@ testCreateNumberArray2D_NullArray<br/>
 | testContains_LowerBound                                   | lower bound input                         | Above and below lower bound   |
 | testContains_UpperBound                                   | upper bound input                         | Above and below upper bound   |
 | testContains_NullRange                                    | null range                                | none applied                  |
-| testGetLength_ZeroLength                                  |                                           |                               |
-| testGetLength_PositiveLength                              |                                           |                               |
-| testGetLength_NegativeLength                              |                                           |                               |
-| testGetLength_FractionLength                              |                                           |                               |
+| testGetLength_ZeroLength                                  | zero range                                | none applied                  |
+| testGetLength_PositiveLength                              | postive valid range                       | none applied                  | 
+| testGetLength_InfiniteLength                              | infinite range                            | infitite bounds               |
+| testGetLength_FractionLength                              | decimal range                             | fraction difference bounds    |
 | testUpperBound_ExtremeDecimalPlaces                       |upper > lower (valid)                      | Above Lower Bound             |
 | testUpperBound_ReturnsEvenWhenNegative                    |upper > lower (valid)                      | Above Lower Bound             |
 | testUpperBound_FailsWhenLessThanLowerBound_BVT_BLB        |upper < lower (invalid)                    | Below Lower Bound             |
@@ -97,10 +97,10 @@ test centralValues
 
 | Test Index                                                    | Equivalence Class                                  | Boundary Value Analysis                       |
 |---------------------------------------------------------------|----------------------------------------------------|-----------------------------------------------|
-| testCreateNumberArray_PositiveValues                          |                                                    |                                               |
-| testCreateNumberArray_NegativeValues                          |                                                    |                                               |
-| testCreateNumberArray_ZeroValues                              |                                                    |                                               |
-| testCreateNumberArray_EmptyArray                              |                                                    |                                               |
+| testCreateNumberArray_PositiveValues                          | Positive values array                              | Above zero                                    |
+| testCreateNumberArray_NegativeValues                          | Negative values array                              | Below zero                                    |
+| testCreateNumberArray_ZeroValues                              | Zero values array                                  | none applied                                  |
+| testCreateNumberArray_EmptyArray                              | Empty array                                        | none applied                                  |
 | testCalculateColumnTotal_UsingNullAsDataArgument              | Invalid data object                                | Data object invalid                           |
 | testCalculateColumnTotal_ZeroRows                             | Valid data object, 0 <= column < n (valid)         | Data object has 0 rows, column is nominal     |
 | testCalculateColumnTotal_ZeroColumns                          | Valid data object, 0 <= column < n (valid)         | Data object has 0 columns, column is nominal  |
@@ -119,10 +119,10 @@ test centralValues
 | testGetCumulativePercentages_WithAllNegativeNumbers           | Valid data object, invalid contents in object      | Contains negative numbers                     |
 | testGetCumulativePercentages_WithSingleValue                  | Valid data object, valid contents in object        | Nominal                                       |
 | testGetCumulativePercentages_WithVerySmallValues              | Valid data object, valid contents in object        | Nominal                                       |
-| testcalculateRowTotal_CorrectTotal                            | Valid data object, Positive Values                                                                                                               | Between Zero and Positive                     |
+| testcalculateRowTotal_CorrectTotal                            | Valid data object, Positive Values                 | Between Zero and Positive                     |
 | testcalculateRowTotalWithEmptyDataSet_ReturnZeroTotal         | Valid data object, Empty Values                    | Boundary Values for Null                      |
 | testcalculateRowTotalWithZeroValues_ReturnCorrectTotal        | Valid data object, Zero Values                     | Between Zero and Positive                     |
-| testcalculateRowTotalWithNegativeValues_ReturnCorrectTotal    | Valid data object, Negative Values                 | Between Positive and Negative                                                                                                                                                             |
+| testcalculateRowTotalWithNegativeValues_ReturnCorrectTotal    | Valid data object, Negative Values                 | Between Positive and Negative                 |
 | testCreateNumberArray2D_ValidArray                            | Valid array input                                  | none applied                                  |
 | testCreateNumberArray2D_EmptyArray                            | Empty array input                                  | none applied                                  |
 | testCreateNumberArray2D_NullArray                             | Null array inpput                                  | none applied                                  |
