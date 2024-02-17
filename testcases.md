@@ -64,15 +64,15 @@ testCreateNumberArray2D_NullArray<br/>
 
 | Test Index                                                | Equivalence Class                         | Boundary Value Analysis       |
 |-----------------------------------------------------------|-------------------------------------------|-------------------------------|
-| testGetLowerBound_PositiveLowerBound                      |                                           |                               |
-| testGetLowerBound_NegativeLowerBound                      |                                           |                               |
-| testGetLowerBound_ZeroLowerBound                          |                                           |                               |
-| testGetLowerBound_NullLowerBound                          |                                           |                               |
-| testContains_ValueInRange                                 |                                           |                               |
-| testContains_ValueNotInRange                              |                                           |                               |
-| testContains_LowerBound                                   |                                           |                               |
-| testContains_UpperBound                                   |                                           |                               |
-| testContains_NullRange                                    |                                           |                               |
+| testGetLowerBound_PositiveLowerBound                      | Positive lower bound value                | barely positive lower bound   |
+| testGetLowerBound_NegativeLowerBound                      | Negative Lower bound value                | barely negative lower bound   |
+| testGetLowerBound_ZeroLowerBound                          | Zero lower bound value                    | barely zero lower bound       |
+| testGetLowerBound_NullLowerBound                          | Null range                                | none applied                  |
+| testContains_ValueInRange                                 | Valid input, inside range                 | Barely inside range           |
+| testContains_ValueNotInRange                              | Invalid input, outside range              | Barely outside range          |
+| testContains_LowerBound                                   | lower bound input                         | Above and below lower bound   |
+| testContains_UpperBound                                   | upper bound input                         | Above and below upper bound   |
+| testContains_NullRange                                    | null range                                | none applied                  |
 | testGetLength_ZeroLength                                  |                                           |                               |
 | testGetLength_PositiveLength                              |                                           |                               |
 | testGetLength_NegativeLength                              |                                           |                               |
@@ -123,6 +123,6 @@ test centralValues
 | testcalculateRowTotalWithEmptyDataSet_ReturnZeroTotal         |                                                    |                                               |
 | testcalculateRowTotalWithZeroValues_ReturnCorrectTotal        |                                                    |                                               |
 | testcalculateRowTotalWithNegativeValues_ReturnCorrectTotal    |                                                    |                                               |
-| testCreateNumberArray2D_ValidArray                            |                                                    |                                               |
-| testCreateNumberArray2D_EmptyArray                            |                                                    |                                               |
-| testCreateNumberArray2D_NullArray                             |                                                    |                                               |
+| testCreateNumberArray2D_ValidArray                            | Valid array input                                  | none applied                                  |
+| testCreateNumberArray2D_EmptyArray                            | Empty array input                                  | none applied                                  |
+| testCreateNumberArray2D_NullArray                             | Null array inpput                                  | none applied                                  |

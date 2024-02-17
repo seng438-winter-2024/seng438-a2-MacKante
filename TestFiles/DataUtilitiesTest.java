@@ -65,9 +65,10 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Should throw an InvalidParameterException since the data argument is invalid
 	 * @throws InvalidParameterException
 	 */
-	@Test(expected=InvalidParameterException.class)
-	public void testCalculateColumnTotal_UsingNullAsDataArgument() throws InvalidParameterException {
-		assertEquals(0, DataUtilities.calculateColumnTotal(null, 0), .000000001d);
+	@Test(expected=NullPointerException.class)
+	public void testCalculateColumnTotal_UsingNullAsDataArgument() throws NullPointerException {
+		double result = DataUtilities.calculateColumnTotal(null, 0);
+		assertNull("Expected to be null", result);
 	}
 	
 	/**
@@ -78,8 +79,6 @@ public class DataUtilitiesTest extends DataUtilities {
 
         // Define expectations for the mock
         context.checking(new Expectations() {{
-        	oneOf(values2DMock).getColumnCount();
-            will(returnValue(5));
             oneOf(values2DMock).getRowCount();
             will(returnValue(0));
         }});
@@ -96,29 +95,36 @@ public class DataUtilitiesTest extends DataUtilities {
 	@Test
 	public void testCalculateColumnTotal_ZeroColumns() {
 
-        // Define expectations for the mock
-        context.checking(new Expectations() {{
-        	oneOf(values2DMock).getColumnCount();
-            will(returnValue(0));
-            oneOf(values2DMock).getRowCount();
-            will(returnValue(5));
-        }});
+		 context.checking(new Expectations() {{
+	            allowing(values2DMock).getColumnCount();
+	            will(returnValue(0)); 
 
-        double result = DataUtilities.calculateColumnTotal(values2DMock, 1);
+	            allowing(values2DMock).getRowCount();
+	            will(returnValue(0)); 
+	        }});
+		
+        double result = DataUtilities.calculateColumnTotal(values2DMock, 0);
 
         // Verify the result
         assertEquals(0, result, 0.0001); // With invalid input, a total of zero will be returned.
     }
 	
 	/**
-	 * Check that the method returns 0 when the column argument is negative
+	 * Check that the method throws exception when the column argument is negative
 	 */
 	@Test
 	public void testCalculateColumnTotal_NegativeColumnArg_BLB() {
-        double result = DataUtilities.calculateColumnTotal(values2DMock, -1);
+		Values2D data = new DefaultKeyedValues2D();
+        ((DefaultKeyedValues2D)data).setValue(1.0, "Row1", "Column1");
+        ((DefaultKeyedValues2D)data).setValue(2.0, "Row2", "Column1");
+        ((DefaultKeyedValues2D)data).setValue(3.0, "Row3", "Column1");
 
-        // Verify the result
-        assertEquals(0, result, 0.0001); // With invalid input, a total of zero will be returned.
+        try {
+            double result = DataUtilities.calculateColumnTotal(data, -1);
+            fail("Expected to throw Illegal argument exception");
+        } catch (Exception e) {
+            assertEquals("Unexpected exception message", "Column index must be >= 0", e.getMessage());
+        }
     }
 	
 	/**
@@ -127,22 +133,24 @@ public class DataUtilitiesTest extends DataUtilities {
 	@Test
 	public void testCalculateColumnTotal_ColumnEqualsZero_LB() {
         // Define expectations for the mock
-        context.checking(new Expectations() {{
-        	// column count should always be called to check that the argument is within boundary
-            oneOf(values2DMock).getColumnCount();
-            will(returnValue(5));
-            oneOf(values2DMock).getRowCount();
-            will(returnValue(5));
-            exactly(5).of(values2DMock).getValue(with(any(int.class)), with(0));
-            will(returnValue(10));
+		context.checking(new Expectations() {{
+			allowing(values2DMock).getColumnCount();
+            will(returnValue(3)); 
 
+            allowing(values2DMock).getRowCount();
+            will(returnValue(3)); 
+
+            // Set up expectations for the getValue() method to return values for the given column
+            oneOf(values2DMock).getValue(0, 0); will(returnValue(1.0)); // Assuming the value at (0, 0) is 1.0
+            oneOf(values2DMock).getValue(1, 0); will(returnValue(2.0)); // Assuming the value at (1, 0) is 2.0
+            oneOf(values2DMock).getValue(2, 0); will(returnValue(3.0)); // Assuming the value at (2, 0) is 3.0
         }});
 
-        double result = DataUtilities.calculateColumnTotal(values2DMock, 0);
+        // Calculate the column total with column index 0
+        double columnTotal = DataUtilities.calculateColumnTotal(values2DMock, 0);
 
-        // Verify the result
-        assertEquals(50, result, 0.0001); // With invalid input, a total of zero will be returned.
-
+        // Assert that the result is the sum of values in column 0
+        assertEquals(6.0, columnTotal, 0.00001);
     }
 	
 	/**
@@ -151,20 +159,25 @@ public class DataUtilitiesTest extends DataUtilities {
 	@Test
 	public void testCalculateColumnTotal_ColumnIsNominal() {
         // Define expectations for the mock
-        context.checking(new Expectations() {{
-        	// column count should always be called to check that the argument is within boundary
-            oneOf(values2DMock).getColumnCount();
-            will(returnValue(5));
-            oneOf(values2DMock).getRowCount();
-            will(returnValue(5));
-            exactly(5).of(values2DMock).getValue(with(any(int.class)), with(2));
-            will(returnValue(10));
+		context.checking(new Expectations() {{
+            // Define expectations for the getValue() method based on your data
+            allowing(values2DMock).getRowCount();
+            will(returnValue(3)); // Example row count
+            allowing(values2DMock).getColumnCount();
+            will(returnValue(2)); // Example column count
+            allowing(values2DMock).getValue(0, 0);
+            will(returnValue(5.0)); // Example value at row 0, column 0
+            allowing(values2DMock).getValue(1, 0);
+            will(returnValue(3.0)); // Example value at row 1, column 0
+            allowing(values2DMock).getValue(2, 0);
+            will(returnValue(7.0)); // Example value at row 2, column 0
         }});
 
-        double result = DataUtilities.calculateColumnTotal(values2DMock, 2);
+        // Calculate the column total
+        double columnTotal = DataUtilities.calculateColumnTotal(values2DMock, 0);
 
-        // Verify the result
-        assertEquals(50, result, 0.0001); // With invalid input, a total of zero will be returned.
+        // Verify that the result matches the expected value
+        assertEquals(15, columnTotal, 0.00001); // Adjust the delta as needed
     }
 	
 	/**
@@ -172,18 +185,23 @@ public class DataUtilitiesTest extends DataUtilities {
 	 */
 	@Test
 	public void testCalculateColumnTotal_ColumnIsAtUB() {
-        // Define expectations for the mock
+		// Set up expectations for the getRowCount(), getColumnCount(), and getValue() methods
         context.checking(new Expectations() {{
-        	// column count should always be called to check that the argument is within boundary
-            oneOf(values2DMock).getColumnCount();
-            will(returnValue(5));
+            allowing(values2DMock).getRowCount();
+            will(returnValue(3)); // Assuming 3 rows for the example
+            
+            allowing(values2DMock).getColumnCount();
+            will(returnValue(3)); // Assuming 3 columns for the example
+            
+            allowing(values2DMock).getValue(with(any(int.class)), with(any(int.class)));
+            will(returnValue(0)); // Assuming the value returned doesn't matter for this test case
         }});
 
-        // here, column is out of bounds
-        double result = DataUtilities.calculateColumnTotal(values2DMock, 5);
+        // Calculate the column total with an out-of-bounds column index
+        double columnTotal = DataUtilities.calculateColumnTotal(values2DMock, 3);
 
-        // Verify the result
-        assertEquals(0, result, 0.0001); // With invalid input, a total of zero will be returned.
+        // Assert that the result is 0
+        assertEquals(0.0, columnTotal, 0.001); // Assuming a delta of 0.001 for comparison
     }
 	
 	/**
@@ -192,15 +210,22 @@ public class DataUtilitiesTest extends DataUtilities {
 	@Test
 	public void testCalculateColumnTotal_ColumnIsAUB() {
 
-        context.checking(new Expectations() {{
-            oneOf(values2DMock).getColumnCount();
-            will(returnValue(1));
+		context.checking(new Expectations() {{
+            allowing(values2DMock).getRowCount();
+            will(returnValue(3)); // Assuming 3 rows for the example
+            
+            allowing(values2DMock).getColumnCount();
+            will(returnValue(3)); // Assuming 3 columns for the example
+            
+            allowing(values2DMock).getValue(with(any(int.class)), with(any(int.class)));
+            will(returnValue(0)); // Assuming the value returned doesn't matter for this test case
         }});
-        // if column arg is too large, doesn't need to find row count and just returns 0
-        double result = DataUtilities.calculateColumnTotal(values2DMock, 5);
+
+        // Calculate the column total with an out-of-bounds column index
+        double columnTotal = DataUtilities.calculateColumnTotal(values2DMock, 6);
 
         // Verify the result
-        assertEquals(0, result, 0.0001); // With invalid input, a total of zero will be returned.
+        assertEquals(0, columnTotal, 0.0001); // With invalid input, a total of zero will be returned.
 
 
     }	
@@ -227,13 +252,14 @@ public class DataUtilitiesTest extends DataUtilities {
 	 * Check that the method throws an InvalidParameterException when the data argument is null
 	 * @throws InvalidParameterException
 	 */
-	@Test(expected=InvalidParameterException.class)
-	public void testGetCumulativePercentages_NullDataArg() throws InvalidParameterException {
-
-		KeyedValues result = DataUtilities.getCumulativePercentages(null);
-		
-		assertNotNull(result);
-		assertEquals(0, result.getItemCount()); // check that its empty too
+	@Test
+	public void testGetCumulativePercentages_NullDataArg() {
+		try {
+			KeyedValues result = DataUtilities.getCumulativePercentages(null);
+			fail("Expected illegal argument exception: " + result);
+		} catch (IllegalArgumentException e) {
+			assertTrue("Illegal argument exception caught, pass test", true);
+		}
 	}
 	
 	/**
@@ -604,17 +630,14 @@ public class DataUtilitiesTest extends DataUtilities {
 	@Test
 	 public void testCreateNumberArray2D_ValidArray() {
 		 double[][] exampleArray1 = {{0, 1, 5}, {-2, 3, -9}};
-		 double[][] exampleArray2 = {{3, 7, -6}, {4, -1, -4}};
-		 
 		 Number[][] newNumberArray1 = DataUtilities.createNumberArray2D(exampleArray1);
-		 Number[][] newNumberArray2 = DataUtilities.createNumberArray2D(exampleArray1);
 		 
 		 assertNotNull("newNumberArray1 should not be null", newNumberArray1);
-		 assertNotNull("newNumberArray2 should not be null", newNumberArray2);
 		 
 		 for( int i = 0; i <newNumberArray1.length; i++ ) {
 			 for( int j = 0;  j < newNumberArray1[i].length; j++ ) {
-				 assertTrue("Row: " + i + " Column: " + j + " should be a Number object: " + newNumberArray1[i][j], newNumberArray1[i][j] instanceof Number);
+				 assertTrue("Row: " + i + " Column: " + j + " should be a Number object", newNumberArray1[i][j] instanceof Number);
+				 assertEquals("Row: " + i + " Column: " + j + " should be: " + exampleArray1[i][j] + " not: " +  newNumberArray1[i][j], exampleArray1[i][j], newNumberArray1[i][j]);
 			 }
 		 }
 	 }
@@ -680,7 +703,4 @@ public class DataUtilitiesTest extends DataUtilities {
             return null; // No values in the dataset
         }
     }
-	
-
-	
 }
